@@ -22,11 +22,11 @@
           <div style="float:left">
             <button class="score" id="home-plus">+</button>
             <button class="score" id="home-minus">-</button>
-            <input type="text" id="home-score" size="2"></input>
+            <input type="text" id="home-score" size="2" value="0"></input>
           </div>
           &nbsp;
           <div style="float:right">
-            <input type="text" id="away-score" size="2"></input>
+            <input type="text" id="away-score" size="2" value="0"></input>
             <button class="score" id="away-minus">-</button>
             <button class="score" id="away-plus">+</button>
           </div>
@@ -48,7 +48,7 @@
 
       home_plus.addEventListener("click", function(e) {
         e.preventDefault();
-        if (home_score.value > 0) { home_score.value++; } else { home_score.value = 1; }
+        home_score.value++;
         update_score();
       });     
 
@@ -60,7 +60,7 @@
 
       away_plus.addEventListener("click", function(e) {
         e.preventDefault();
-        if (away_score.value > 0) { away_score.value++; } else { away_score.value = 1; }
+        away_score.value++;
         update_score();
       });     
 
