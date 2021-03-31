@@ -6,7 +6,12 @@ var home_minus = document.getElementById('home-minus');
 var away_plus = document.getElementById('away-plus');
 var away_minus = document.getElementById('away-minus');
 var home_score = document.getElementById('home-score');
-var away_score = document.getElementById('away-score')
+var away_score = document.getElementById('away-score');
+var kill_play = document.getElementById('kill');
+var ace_play = document.getElementById('ace');
+var block_play = document.getElementById('block');
+var dig_play = document.getElementById('dig');
+var to_play = document.getElementById('timeout');
 
 home_plus.addEventListener("click", function(e) {
   e.preventDefault();
@@ -32,13 +37,48 @@ away_minus.addEventListener("click", function(e) {
   update_score();
 });     
 
+kill_play.addEventListener("click", function(e) {
+  e.preventDefault();
+  send_play('Kill');
+}); 
+
+ace_play.addEventListener("click", function(e) {
+  e.preventDefault();
+  send_play('Ace');
+}); 
+
+block_play.addEventListener("click", function(e) {
+  e.preventDefault();
+  send_play('Block');
+}); 
+
+dig_play.addEventListener("click", function(e) {
+  e.preventDefault();
+  send_play('Dig');
+}); 
+
+to_play.addEventListener("click", function(e) {
+  e.preventDefault();
+  send_play('Timeout');
+}); 
+
 function update_score () {
   var score = home_score.value + "-" + away_score.value;
   socket.emit('scoreboard', score);
 }
 
+function send_play (play) {
+  var message = "PLAY: " + play;
+  var playerlist = document.getElementById('standard-select');
+  message += " by " + playerlist.options[playerlist.selectedIndex].text;
+  socket.emit('chat message', message);
+}
+
 socket.on('chat message', function(msg) {
   var item = document.createElement('li');
+  if (msg.startsWith("PLAY:")) {
+    item.className = "play";
+  }
   item.textContent = msg;
   messages.prepend(item);
   window.scrollTo(0, 0);

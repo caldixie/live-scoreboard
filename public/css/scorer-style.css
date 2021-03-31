@@ -2,12 +2,12 @@ body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSyst
 
 #form { box-sizing: border-box; padding:0; }
 input[type=text] { font-size:4rem; padding:2px; }
-#input:focus {  }
 button { height:50px;width:50px; margin:0 10px; }
 
 #messages { list-style-type: none; margin: 0; padding: 5px 0 0 0; }
 #messages > li { padding: 0.5rem 1rem; }
 #messages > li:nth-child(odd) { background: #efefef; }
+#messages > li.play { color:#ddd; background: #000!important; }
 
 #scoreboard { margin: 0 auto; width: 50%; text-align: center; font-size: 4em; border: solid 2px black; clear:both; display:flex; justify-content:center;align-items: center;}
 
@@ -24,5 +24,12 @@ input:checked + .slider:before { -webkit-transform: translateX(26px); -ms-transf
 :root {  --select-border: #777; --select-focus: blue; --select-arrow: var(--select-border); }
 select { appearance: none; background-color: transparent; border: none; padding: 0 1em 0 0; margin: 0; width: 100%; font-family: inherit; font-size: inherit;  cursor: inherit; line-height: inherit; outline: none; }
 .player-select {  width: 200px; min-width: 15ch; max-width: 30ch; border: 1px solid var(--select-border); border-radius: 0.25em; padding: 0.25em 0.5em; font-size: 1.25rem; cursor: pointer; line-height: 1.1; background-color: #fff; background-image: linear-gradient(to top, #f9f9f9, #fff 33%); display: grid; grid-template-areas: "select"; align-items: center; }
-.player-select::after { content: ""; width: 0.8em; height: 0.5em; background-color: var(--select-arrow); clip-path: polygon(100% 0%, 0 0%, 50% 100%); justify-self: end; }
-select,.player-select:after { grid-area: select; }
+
+
+@media (max-width: 450px) {
+  #scoreboard { width:100%; }
+  button { margin: 0 3px;}
+  #pbp { width:100%; flex-wrap: wrap; }
+  .game_actions { padding-top:10px; }
+  .game_actions button { width: 60px; height: 60px;}
+}
