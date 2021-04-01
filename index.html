@@ -58,10 +58,8 @@
         window.scrollTo(0, 0);
       });
 
-      socket.on('scoreboard', function(score) {
-        var item = document.getElementById('scoreboard')
-        item.textContent = score;
-        score.innerHTML(item);
+      socket.on('scoreboard', function(newscore) {
+        score.textContent = newscore;
         window.scrollTo(0, 0);
       });
     </script>
