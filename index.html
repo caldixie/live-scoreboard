@@ -61,7 +61,7 @@
       socket.on('scoreboard', function(score) {
         var item = document.getElementById('scoreboard')
         item.textContent = score;
-        messages.innerHTML(item);
+        score.innerHTML(item);
         window.scrollTo(0, 0);
       });
     </script>
