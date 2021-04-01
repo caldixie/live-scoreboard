@@ -17,15 +17,17 @@
       #messages > li:nth-child(odd) { background: #efefef; }
       #messages > li.play { color:#ddd; background: #000!important; }
 
-      #scoreboard { margin: 0 auto; width: 25%; text-align: center; font-size: 4em; border: solid 2px black;}
+      #scoreboard { width: 25%; text-align: center; font-size: 4em; border: solid 2px black;}
 
       @media (max-width: 450px) {
         #scoreboard { width:100%; border: none; border-bottom: solid 2px black; font-size: 6em;}
+        .icon {position:absolute;top:35px;left:5px}
+
       }
     </style>
   </head>
   <body>
-    <div id="scoreboard">0-0</div>
+    <div style="display:flex;justify-content:center;align-items:center;"><img class="icon" src="roots.png"><div id="scoreboard">0-0</div></div>
     <ul id="messages"></ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
