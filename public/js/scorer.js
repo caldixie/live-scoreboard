@@ -12,6 +12,9 @@ var ace_play = document.getElementById('ace');
 var block_play = document.getElementById('block');
 var dig_play = document.getElementById('dig');
 var to_play = document.getElementById('timeout');
+var team = window.location.pathname.split('/')[1];
+var chatc = team + '-chat message';
+var scorec = team + '-scoreboard';
 
 home_plus.addEventListener("click", function(e) {
   e.preventDefault();
@@ -64,17 +67,17 @@ to_play.addEventListener("click", function(e) {
 
 function update_score () {
   var score = home_score.value + "-" + away_score.value;
-  socket.emit('scoreboard', score);
+  socket.emit(scorec, score);
 }
 
 function send_play (play) {
   var message = "PLAY: " + play;
   var playerlist = document.getElementById('standard-select');
   message += " by " + playerlist.options[playerlist.selectedIndex].text;
-  socket.emit('chat message', message);
+  socket.emit(chatc, message);
 }
 
-socket.on('chat message', function(msg) {
+socket.on(chatc, function(msg) {
   var item = document.createElement('li');
   if (msg.startsWith("PLAY:")) {
     item.className = "play";

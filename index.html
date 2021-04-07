@@ -18,6 +18,8 @@
       #messages > li.play { color:#ddd; background: #000!important; }
 
       #scoreboard { width: 25%; text-align: center; font-size: 4em; border: solid 2px black;}
+      #delay{ clear: both; }
+      
 
       @media (max-width: 450px) {
         #scoreboard { width:100%; border: none; border-bottom: solid 2px black; font-size: 6em;}
@@ -27,7 +29,8 @@
     </style>
   </head>
   <body>
-    <div style="display:flex;justify-content:center;align-items:center;"><img class="icon" src="roots.png"><div id="scoreboard">0-0</div></div>
+    <div style="display:flex;justify-content:center;align-items:center;"><img class="icon" src="/static/roots.png"><div id="scoreboard">0-0</div></div>
+   <div id="delay" style="display:flex;justify-content:center;align-items:center; padding-top:5px">Delay:<input type="text" autocomplete="off" id="delays" size="2" style="margin: 0 3px;" value="0">seconds</div>
     <ul id="messages"></ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
@@ -41,28 +44,36 @@
       var score = document.getElementById('scoreboard');
       var form = document.getElementById('form');
       var input = document.getElementById('input');
+      var delays = document.getElementById('delays');
+      var team = window.location.pathname.split('/')[1];
+      var chatc = team + '-chat message';
+      var scorec = team + '-scoreboard';
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', input.value);
+          socket.emit(chatc, input.value);
           input.value = '';
         }
       });
 
-      socket.on('chat message', function(msg) {
+      socket.on(chatc, async function(msg) {
         var item = document.createElement('li');
         if (msg.startsWith("PLAY:")) {
           item.className = "play";
         }
         item.textContent = msg;
+        if (delays.value > 0) {
+          await new Promise(r => setTimeout(r,delays.value * 1000));
+        }
         messages.prepend(item);
-        window.scrollTo(0, 0);
       });
 
-      socket.on('scoreboard', function(newscore) {
+      socket.on(scorec, async function(newscore) {
+        if (delays.value > 0) {
+          await new Promise(r => setTimeout(r,delays.value * 1000));
+        }
         score.textContent = newscore;
-        window.scrollTo(0, 0);
       });
     </script>
   </body>
